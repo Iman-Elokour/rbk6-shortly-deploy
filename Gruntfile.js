@@ -3,6 +3,13 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: ';'
+      },
+      dist: {
+        src: ['public/client/**/*.js',  'public/lib/**/*.js'],
+        dest: 'public/dist/sth.js'
+      }
     },
 
     mochaTest: {
@@ -16,16 +23,23 @@ module.exports = function (grunt) {
 
     nodemon: {
       dev: {
-        script: 'server.js'
+        script: 'server.js',
       }
     },
 
     uglify: {
+      src: "public/dist/sth.js",
+      dist: {
+        files: {
+          'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+        }
+      }
     },
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'public/client/**/*.js',
+          'public/lib/**/*.js'
       ]
     },
 
@@ -36,7 +50,7 @@ module.exports = function (grunt) {
       scripts: {
         files: [
           'public/client/**/*.js',
-          'public/lib/**/*.js',
+          'public/lib/**/*.js'
         ],
         tasks: [
           'concat',
