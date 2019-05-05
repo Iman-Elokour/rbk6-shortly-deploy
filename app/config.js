@@ -1,5 +1,10 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("h");
+});
 // var path = require('path');
 // var knex = require('knex')({
 //   client: 'sqlite3',
@@ -39,4 +44,5 @@ mongoose.connect('mongodb://localhost/test');
 //   }
 // });
 
- module.exports = db;
+
+ module.exports = mongoose;

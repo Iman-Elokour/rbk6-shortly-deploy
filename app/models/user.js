@@ -13,23 +13,23 @@
 
   var User = mongoose.model('users', UserSchema);
 
-User.method.initialize = function () {
-  this.on('creating', this.hashPassword);
-}
+// User.method.initialize = function () {
+//   this.on('creating', this.hashPassword);
+// }
 
-User.method.comparePassword = function (attemptedPassword, callback) {
-  bcrypt.compare(attemptedPassword, this.get('password'), function (err, isMatch) {
-    callback(isMatch);
-  });
-}
+// User.method.comparePassword = function (attemptedPassword, callback) {
+//   bcrypt.compare(attemptedPassword, this.get('password'), function (err, isMatch) {
+//     callback(isMatch);
+//   });
+// }
 
-User.method.hashPassword = function () {
-  var cipher = Promise.promisify(bcrypt.hash);
-  return cipher(this.get('password'), null, null).bind(this)
-    .then(function (hash) {
-      this.set('password', hash);
-    });
-}
+// User.method.hashPassword = function () {
+//   var cipher = Promise.promisify(bcrypt.hash);
+//   return cipher(this.get('password'), null, null).bind(this)
+//     .then(function (hash) {
+//       this.set('password', hash);
+//     });
+// }
 
 
 
